@@ -41,7 +41,7 @@ declare -ir __SHIFTN=4
 shspec::__mktemp-shm()
 {
   local -r shm=/dev/shm
-  [ -d $shm -a -r $shm ] && mktemp -p$shm || mktemp
+  [ -d $shm -a -r $shm ] && mktemp -p$shm || mktemp -t ""
 }
 
 
@@ -146,8 +146,11 @@ end()
 expect()
 {
   shspec::stack::_assert-within it expect $(caller)
-  __spec_result="$("$@" 2>"$__spec_errpath")"
-  __spec_rexit=$?
+
+  __spec_result=$("$@" 2>"$__spec_errpath"; printf "%03d" $?)
+  local -i __spec_result_length=${#__spec_result}
+  __spec_rexit=${__spec_result: -3}
+  __spec_result=${__spec_result:0:$__spec_result_length-3}
   shspec::stack::_push :expect $(caller) "$@"
 }
 
