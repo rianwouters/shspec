@@ -70,7 +70,7 @@ shspec::expect::__output-cmd()
         exec 99<"$stderr"
       fi
 
-      $cmd "$cmp" <&99 &>/dev/null
+      $cmd "$cmp" <&99 #&>/dev/null
     }
   } 99<&0
 
