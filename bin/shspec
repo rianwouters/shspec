@@ -24,10 +24,10 @@
 # absolute paths
 declare -a paths=()
 for arg in "$@"; do
-  paths+=( "$( readlink -f "$arg" )" )
+  paths+=( "$arg" )
 done
 
 # place ourselves in a known state and kick off the CLI
-cd "$(dirname $0)"/../src \
+cd "$(dirname $(readlink $0))"/../src \
   && exec ./cli "${paths[@]}"
 
