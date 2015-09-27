@@ -1,0 +1,21 @@
+#!/bin/bash
+describe shspec
+  it is a BDD framework for shell
+    expect current-shell-support
+      to output "bash"
+
+    expect pronounciation
+      to succeed
+      and to output "shell spec"
+  end
+
+  it is currently under development
+    expect is-stable
+      to succeed
+      and to output "Because of self-testing"
+
+    expect is-comprehensive
+      to fail
+      and to output "You should check back later."
+  end
+end
